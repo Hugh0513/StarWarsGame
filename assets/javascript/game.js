@@ -100,7 +100,7 @@ function moveCharacter(obj, place) {
 
 
 	var charDiv = document.createElement("li");
-	$("#enemies").append(charDiv);
+	$(place).append(charDiv);
 
 	$(charDiv).attr("class", "enemy");
 	$(charDiv).attr("power", obj.power);
@@ -133,7 +133,11 @@ $(document).ready(function() {
 	var Defender;
 	var yourDamage;
 	var defDamage;
-	var yourAtackPower; // remeber incresing
+	var yourAtackPower; // remember incresing
+	var isDefenderSlected;
+
+	isDefenderSlected = false;
+	isEnemiesAvailable = false;
 
 	//for (var i = 0; i < names.length; i++) {
 
@@ -184,7 +188,32 @@ $(document).ready(function() {
 		console.log("clicked def");
 		console.log(this);
 
+		var elem= document.getElementById("#defender");
+
+		if (isDefenderSlected) {
+			return;
+		}
+		else{
+			// Move selected item to Defender
+			moveCharacter(anakinObj, "#defender");
+
+			// Remove from ememies available to attack
+			$(this).remove();
+
+			isDefenderSlected = true;
+		}
+
 	});
+
+
+	// Select defender
+	$("#attack").click(function(event) {
+		console.log("attacked")
+
+		
+
+	});
+
 
 });
 
