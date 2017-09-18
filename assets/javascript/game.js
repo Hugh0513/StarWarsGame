@@ -2,98 +2,14 @@
 var quiObj = {
 	name: "Qui-Gon Jinn",
 	photo: "assets/images/qui.jpg",
-	hp: 180,
-	display: function() {
-
-        var charDiv = $("<button>");
-
-		charDiv.addClass("character");
-
-		//charDiv.attr("power", this.hp);
-
-		//charDiv.attr("data-letter", this.name);
-		charDiv.attr("id", "1");
-
-		//charDiv.text(this.name);
-		charDiv.append(this.name)
-		charDiv.append('<img src="' + this.photo + '">')
-		charDiv.append(this.hp)
-
-		//console.log(charDiv);
-
-		return charDiv;
-
-		//$("#characters").append(charDiv);
-
-	},
-	setCharacter: function() {
-		$("#yourCharacters").append(charDiv);
-
-	},
-	attack: function() {
-			return 20;
-	}
+	hp: 180
 };
 
 
 var anakinObj = {
 	name: "Anakin Skywalker",
 	photo: "assets/images/anakin.jpg",
-	hp: 100,
-	display: function() {
-
-        var charDiv = $("<button>");
-
-		charDiv.addClass("character");
-
-		//charDiv.attr("power", this.hp);
-
-		charDiv.attr("id", "2");
-
-		//charDiv.text(this.name);
-		charDiv.append(this.name)
-		charDiv.append('<img src="' + this.photo + '">')
-		charDiv.append(this.hp)
-
-		//console.log(charDiv);
-
-		return charDiv;
-
-		//$("#characters").append(charDiv);
-
-	},
-	setCharacter: function() {
-		$("#yourCharacters").append(charDiv);
-
-	},
-	attack: function() {
-			return 20;
-	}
-};
-
-//quiObj.display();
-
-function displayCharacter(obj, place) {
-
-    var charDiv = $("<button>");
-
-	charDiv.addClass("character");
-	//charDiv.addClass("character enemy defender");
-
-	//charDiv.attr("power", obj.hp);
-
-	//charDiv.attr("id", "2");
-
-	//charDiv.text(this.name);
-	charDiv.append(obj.name)
-	charDiv.append('<img src="' + obj.photo + '">')
-	charDiv.append(obj.hp)
-
-	//console.log(charDiv);
-
-	//return charDiv;
-
-	$(place).append(charDiv);
+	hp: 100
 };
 
 function moveCharacter(obj, place) {
@@ -101,7 +17,7 @@ function moveCharacter(obj, place) {
 	var charDiv = document.createElement("button");
 	$(place).append(charDiv);
 
-	console.log(place);
+	$(charDiv).attr("class", "character");
 
 	if (place === "#enemies") {
 		console.log(place);
@@ -113,6 +29,9 @@ function moveCharacter(obj, place) {
 
 	}
 
+	$(charDiv).attr("id", obj.name);
+	$(charDiv).attr("value", obj.name);
+	$(charDiv).attr("hp", obj.hp);
 
 	//$(charDiv).attr("power", obj.hp);
 
@@ -136,16 +55,17 @@ function moveCharacter(obj, place) {
 
 $(document).ready(function() {
 
-	var names = ["Qui-Gon Jinn", "Anakin Skywalker", "Count Dooku", "General Grievous"];
-	var images = ["qui.jpg", "anakin.jpg", "dooku.jpg", "grievous.jpb"];
-	var pps = ["120", "100", "150", "180"];
+	//var names = ["Qui-Gon Jinn", "Anakin Skywalker", "Count Dooku", "General Grievous"];
+	//var images = ["qui.jpg", "anakin.jpg", "dooku.jpg", "grievous.jpb"];
+	//var pps = ["120", "100", "150", "180"];
 
 	var yourCharacter;
-	var Defender;
+	var defender;
 	var yourDamage;
 	var defDamage;
-	var yourAtackPower; // remember incresing
+	var yourAttackPower = 0; // remember incresing
 	var isDefenderSlected;
+
 
 	isDefenderSlected = false;
 	isEnemiesAvailable = false;
@@ -165,24 +85,21 @@ $(document).ready(function() {
 	//}
 
 	// Add selected character to #yourCharacters. Add other characters to #enemies.
-	//quiObj.display();
-	//$("#characters").append(quiObj.display());
-	//$("#characters").append(anakinObj.display());
-	displayCharacter(quiObj, "#characters");
-	displayCharacter(anakinObj, "#characters");
-
+	moveCharacter(quiObj, "#characters");
+	moveCharacter(anakinObj, "#characters");
 
 	// Select your character
 	$(".character").on("click", function() {
 
 		console.log("clicked");
-		console.log(this);
+		console.log(this.value);
+		yourCharacter = this.value;
 
 		$("#characters").empty();
 
 		// Display Your Character
 		//$("#yourCharacter").append(quiObj.display());
-		displayCharacter(quiObj, "#yourCharacter");
+		moveCharacter(quiObj, "#yourCharacter");
 		//$(this).removeClass("enemy");
 
 		// Display Enemies available To Attack
@@ -194,7 +111,12 @@ $(document).ready(function() {
 	});
 
 	// Select defender
-	$("#enemies").click(function(event) {
+	//$(".enemy").click(function(event) {
+	$("#enemies").on("click", function() {
+	//$(".enemy").on("click", function() {
+
+		console.log($(this));
+		console.log(this.value);
 
 		if (isDefenderSlected) {
 			return;
@@ -231,8 +153,17 @@ $(document).ready(function() {
 			// You been defeated...GAME OVER!!!
 			// You have defeated xxx, you can choose to fight anothet enemy.
 
+			//var elem = document.getElementByID('yourCharacter');
+			//console.log(elem.id);
+			console.log($("#yourCharacter").children('button'));
+			console.log($("#yourCharacter button"));
+			var elem = $("#yourCharacter").children('button');
+			console.log(elem.value);
 			//if ()		
+			yourAttackPower += 8;
 
+			result = "You attacked xxx for " + parseInt(yourAttackPower) + " damage."
+			result += "<br>xxx attacked you back for xx damage."
 		}
 		else {
         	result = "Slect defender";
