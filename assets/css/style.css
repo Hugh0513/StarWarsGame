@@ -1,9 +1,9 @@
 
 body {
-    /*font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;*/
-    font-family: 'Shadows Into Light', cursive;
+    background-image: url("../images/buildings.jpg");
+    font-family: 'Share Tech Mono', monospace;
+    color: #000;
     color: #fff;
-	background-color: #000;
 	height: 100%;
 }
 
@@ -32,11 +32,8 @@ img {
 }
 
 .header {
-	/*position: fixed;*/
-  	/*padding: 20px;*/
 	text-align: center;
-	/*top: 0;
-	left: 0;*/
+	width: 100%;
 	height: 70px;
 	overflow: hidden;
 	margin: 0;
@@ -44,72 +41,31 @@ img {
   	width: 100%;
 }
 
-#title {
-	position: relative;
-	width: 100%;
-}
-
-#subTitle {
-	position: absolute;
+.character, .enemy, .defender {
 	text-align: center;
-	top: 55px;
-	color: #0000ff;
-	width: 100%;
-	transform: rotate(-10deg);
-	-moz-transform: rotate(-10deg);
-	-webkit-transform: rotate(-10deg);
-}
-
-.subject {
-	text-align: center;
-	height: 70px;
+	width: 150px;
+	height: 130px;
 	overflow: hidden;
 	margin: 0;
+	background-color: #fff;
+	font-size: 10px;
 
-  	width: 100%;
+	border-style: solid;
+	border-color: orange;
 }
 
-.leftWindow {
-	/*float:left;*/
+.character img {
+	width: 120px;
+	height: 80px;
+}
 
-	width: 100%;
-	height: 100%;
-	/*width: 240px;
-	height: 500px;*/
-	padding: 20px;
+.enemy {
+	background-color: red;
 	
-	/*margin-top: 20px;*/
-	/*margin-left:10px;*/
-	margin:10px 10px 10px 10px;
-
-  	border-style: dotted;
-  	border-width: 3px;
-  	border-color: #dddddd;
+	border-style: solid;
+	border-color: orange;
 }
 
-.rightWindow {
-	/*float:left;*/
-
-	width: 100%;
-	height: 100%;
-	/*width: 240px;
-	height: 500px;*/
-	padding: 20px;
-	text-align: center;
-	
-	/*margin-top: 20px;*/
-	/*margin-left:10px;*/
-	margin:10px 10px 10px 10px;
-
-  	border-style: dotted;
-  	border-width: 3px;
-  	border-color: #dddddd;
-}
-
-#currentWord {
-	letter-spacing: 5px;
-}
-
-#alreadyGuessed {
-	letter-spacing: 5px;
+#defender button{
+	background-color: black;
 }
