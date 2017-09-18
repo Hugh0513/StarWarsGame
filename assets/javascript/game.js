@@ -98,11 +98,22 @@ function displayCharacter(obj, place) {
 
 function moveCharacter(obj, place) {
 
-
-	var charDiv = document.createElement("li");
+	var charDiv = document.createElement("button");
 	$(place).append(charDiv);
 
-	$(charDiv).attr("class", "enemy");
+	console.log(place);
+
+	if (place === "#enemies") {
+		console.log(place);
+		$(charDiv).attr("class", "enemy");
+		//$(charDiv).removeAttr("class", "character");
+	}
+	else if (place === "#defender") {
+		$(charDiv).attr("class", "defender");
+
+	}
+
+
 	//$(charDiv).attr("power", obj.hp);
 
 	//charDiv.attr("id", "2");
@@ -111,8 +122,8 @@ function moveCharacter(obj, place) {
 	//charDiv.append("<div>")
 	//charDiv.addClass("character");
 	//charDiv.text(this.name);
-	$(charDiv).append(obj.name)
-	$(charDiv).append('<img src="' + obj.photo + '">')
+	$(charDiv).append(obj.name + '<br>')
+	$(charDiv).append('<img src="' + obj.photo + '">' + '<br>')
 	$(charDiv).append(obj.hp)
 
 	//console.log(charDiv);
@@ -185,11 +196,6 @@ $(document).ready(function() {
 	// Select defender
 	$("#enemies").click(function(event) {
 
-		console.log("clicked def");
-		console.log(this);
-
-		var elem= document.getElementById("#defender");
-
 		if (isDefenderSlected) {
 			return;
 		}
@@ -218,12 +224,22 @@ $(document).ready(function() {
 		console.log("attacked");
 
 		if (isDefenderSlected) {
-        	$("#result").html("attacked");
+			var result;
+			// You attacked xxx for xx damage.
+			// xxx attacked you back for xx damage.
+
+			// You been defeated...GAME OVER!!!
+			// You have defeated xxx, you can choose to fight anothet enemy.
+
+			//if ()		
 
 		}
 		else {
-
+        	result = "Slect defender";
 		}
+
+        $("#result").html(result);
+
 
 	});
 

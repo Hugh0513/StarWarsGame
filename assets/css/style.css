@@ -59,10 +59,28 @@ img {
 	height: 80px;
 }
 
+.enemy img {
+	width: 120px;
+	height: 80px;
+}
+
+.defender img {
+	width: 120px;
+	height: 80px;
+}
+
 .enemy {
 	background-color: red;
 
 	border-style: solid;
+	border-color: black;
+}
+
+.defender {
+	background-color: black;
+	
+	color: #fff;
+	border-style: bold;
 	border-color: orange;
 }
 
