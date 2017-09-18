@@ -2,14 +2,14 @@
 var quiObj = {
 	name: "Qui-Gon Jinn",
 	photo: "assets/images/qui.jpg",
-	power: 180,
+	hp: 180,
 	display: function() {
 
         var charDiv = $("<button>");
 
 		charDiv.addClass("character");
 
-		charDiv.attr("power", this.power);
+		//charDiv.attr("power", this.hp);
 
 		//charDiv.attr("data-letter", this.name);
 		charDiv.attr("id", "1");
@@ -17,7 +17,7 @@ var quiObj = {
 		//charDiv.text(this.name);
 		charDiv.append(this.name)
 		charDiv.append('<img src="' + this.photo + '">')
-		charDiv.append(this.power)
+		charDiv.append(this.hp)
 
 		//console.log(charDiv);
 
@@ -39,21 +39,21 @@ var quiObj = {
 var anakinObj = {
 	name: "Anakin Skywalker",
 	photo: "assets/images/anakin.jpg",
-	power: 100,
+	hp: 100,
 	display: function() {
 
         var charDiv = $("<button>");
 
 		charDiv.addClass("character");
 
-		charDiv.attr("power", this.power);
+		//charDiv.attr("power", this.hp);
 
 		charDiv.attr("id", "2");
 
 		//charDiv.text(this.name);
 		charDiv.append(this.name)
 		charDiv.append('<img src="' + this.photo + '">')
-		charDiv.append(this.power)
+		charDiv.append(this.hp)
 
 		//console.log(charDiv);
 
@@ -80,14 +80,14 @@ function displayCharacter(obj, place) {
 	charDiv.addClass("character");
 	//charDiv.addClass("character enemy defender");
 
-	charDiv.attr("power", obj.power);
+	//charDiv.attr("power", obj.hp);
 
 	//charDiv.attr("id", "2");
 
 	//charDiv.text(this.name);
 	charDiv.append(obj.name)
 	charDiv.append('<img src="' + obj.photo + '">')
-	charDiv.append(obj.power)
+	charDiv.append(obj.hp)
 
 	//console.log(charDiv);
 
@@ -103,7 +103,7 @@ function moveCharacter(obj, place) {
 	$(place).append(charDiv);
 
 	$(charDiv).attr("class", "enemy");
-	$(charDiv).attr("power", obj.power);
+	//$(charDiv).attr("power", obj.hp);
 
 	//charDiv.attr("id", "2");
 
@@ -113,7 +113,7 @@ function moveCharacter(obj, place) {
 	//charDiv.text(this.name);
 	$(charDiv).append(obj.name)
 	$(charDiv).append('<img src="' + obj.photo + '">')
-	$(charDiv).append(obj.power)
+	$(charDiv).append(obj.hp)
 
 	//console.log(charDiv);
 
@@ -205,12 +205,25 @@ $(document).ready(function() {
 
 	});
 
+	$("#defender").click(function(event) {
 
-	// Select defender
+		console.log("clicked def");
+		console.log(this);
+
+	});
+
+
+	// Attack
 	$("#attack").click(function(event) {
-		console.log("attacked")
+		console.log("attacked");
 
-		
+		if (isDefenderSlected) {
+        	$("#result").html("attacked");
+
+		}
+		else {
+
+		}
 
 	});
 
