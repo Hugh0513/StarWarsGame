@@ -34,7 +34,8 @@ $(document).ready(function() {
 	var defDamage;
 	var yourAttackPower = 0; // remember incresing
 	var isDefenderSlected;
-
+	var isEnemiesAvailable;
+	var defenderObj;
 
 	isDefenderSlected = false;
 	isEnemiesAvailable = false;
@@ -134,6 +135,8 @@ $(document).ready(function() {
 			$(charDiv).append('<img src="' + characterObjects[event.target.id].photo + '">' + '<br>')
 			$(charDiv).append('<span id="defenderHp">' + characterObjects[event.target.id].hp + '</span>')
 
+			defenderObj = charDiv; // Save to remove when defender is defeated
+
 			isDefenderSlected = true;
 		}
 
@@ -178,11 +181,16 @@ $(document).ready(function() {
 			var elem = document.getElementById('defenderHp');
 			elem.innerText = characterObjects[defenderID].hp; 
 
-			//var elem = document.getElementById(defenderID);
+			var elem = document.getElementById(defenderID);
 			console.log(defenderID);
-			//var elem = $(defenderID).[0];
-
 			console.log(elem);
+			console.log(this);
+			console.log($(this));
+			console.log(defenderObj);
+
+			//var cEle = $().[0];
+			//ßconsole.log($(defenderID).get(0));
+
 			console.log(characterObjects[defenderID]);
 
 			if (characterObjects[defenderID].hp <= 0) {
@@ -190,6 +198,8 @@ $(document).ready(function() {
 				result = "You have defeated " + characterObjects[defenderID].name + ", you can choose to fight anothet enemy."
 			
 				// Remove Defender
+				$(defenderObj).remove();
+				isDefenderSlected = false;
 
 				//$(characterObjects[defenderID]).remove();
 
