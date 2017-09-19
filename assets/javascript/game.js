@@ -1,66 +1,35 @@
-
-var quiObj = {
-	name: "Qui-Gon Jinn",
-	photo: "assets/images/qui.jpg",
-	hp: 180
-};
-
-
-var anakinObj = {
-	name: "Anakin Skywalker",
-	photo: "assets/images/anakin.jpg",
-	hp: 100
-};
-
-function moveCharacter(obj, place) {
-
-	var charDiv = document.createElement("button");
-	$(place).append(charDiv);
-
-	$(charDiv).attr("class", "character");
-
-	if (place === "#enemies") {
-		console.log(place);
-		$(charDiv).attr("class", "enemy");
-		//$(charDiv).removeAttr("class", "character");
-	}
-	else if (place === "#defender") {
-		$(charDiv).attr("class", "defender");
-
-	}
-
-	$(charDiv).attr("id", obj.name);
-	$(charDiv).attr("value", obj.name);
-	$(charDiv).attr("hp", obj.hp);
-
-	//$(charDiv).attr("power", obj.hp);
-
-	//charDiv.attr("id", "2");
-
-
-	//charDiv.append("<div>")
-	//charDiv.addClass("character");
-	//charDiv.text(this.name);
-	$(charDiv).append(obj.name + '<br>')
-	$(charDiv).append('<img src="' + obj.photo + '">' + '<br>')
-	$(charDiv).append(obj.hp)
-
-	//console.log(charDiv);
-
-	//return charDiv;
-
-	//$(place).append(charDiv);
-};
+var characterObjects = [
+  {
+    name: "Qui-Gon Jinn",
+    photo: "assets/images/qui.jpg",
+    hp: 120,
+    ap: 25
+  },
+  {
+    name: "Anakin Skywalker",
+    photo: "assets/images/anakin.jpg",
+    hp: 100,
+    ap: 20
+  },
+  {
+    name: "Count Dooku",
+    photo: "assets/images/dooku.jpg",
+    hp: 150,
+    ap: 25
+  },
+  {
+    name: "General Grievous",
+    photo: "assets/images/grievous.jpg",
+    hp: 180,
+    ap: 25
+  }
+];
 
 
 $(document).ready(function() {
 
-	//var names = ["Qui-Gon Jinn", "Anakin Skywalker", "Count Dooku", "General Grievous"];
-	//var images = ["qui.jpg", "anakin.jpg", "dooku.jpg", "grievous.jpb"];
-	//var pps = ["120", "100", "150", "180"];
-
-	var yourCharacter;
-	var defender;
+	var yourCharacterID;
+	var defenderID;
 	var yourDamage;
 	var defDamage;
 	var yourAttackPower = 0; // remember incresing
@@ -70,73 +39,114 @@ $(document).ready(function() {
 	isDefenderSlected = false;
 	isEnemiesAvailable = false;
 
-	//for (var i = 0; i < names.length; i++) {
 
-	//var carBtn = $("<button>");
+	// Display characters
+	for (var i = 0; i < characterObjects.length; i++) {
 
-	//carBtn.addClass("letter-button letter letter-button-color");
+		console.log("for loop");
 
-	//carBtn.attr("data-letter", names[i]);
+		var charDiv = document.createElement("button");
+		$("#characters").append(charDiv);
 
-	//carBtn.text(names[i]);
+		$(charDiv).attr("class", "character");
+		$(charDiv).attr("id", i);
+		$(charDiv).attr("value", characterObjects[i].name);
+		$(charDiv).append(characterObjects[i].name + '<br>')
+		$(charDiv).append('<img src="' + characterObjects[i].photo + '">' + '<br>')
+		$(charDiv).append(characterObjects[i].hp)
 
-	//$("#characters").append(carBtn);
-
-	//}
+	}
 
 	// Add selected character to #yourCharacters. Add other characters to #enemies.
-	moveCharacter(quiObj, "#characters");
-	moveCharacter(anakinObj, "#characters");
+	//moveCharacter(quiObj, "#characters");
+	//moveCharacter(anakinObj, "#characters");
 
 	// Select your character
-	$(".character").on("click", function() {
+	//$(".character").on("click", function() {
+	$("#characters").on("click", function(event) {
 
 		console.log("clicked");
-		console.log(this.value);
-		yourCharacter = this.value;
+		console.log(event.target.id);
+		yourCharacterID = event.target.id;
+		console.log(yourCharacter);
 
-		$("#characters").empty();
+		// Move selected character to your character
+		var charDiv = document.createElement("button");
+		$("#yourCharacter").append(charDiv);
 
-		// Display Your Character
-		//$("#yourCharacter").append(quiObj.display());
-		moveCharacter(quiObj, "#yourCharacter");
-		//$(this).removeClass("enemy");
+		$(charDiv).attr("class", "character");
+		$(charDiv).attr("id", event.target.id);
+		$(charDiv).attr("value", characterObjects[event.target.id].name);
+		$(charDiv).append(characterObjects[event.target.id].name + '<br>')
+		$(charDiv).append('<img src="' + characterObjects[event.target.id].photo + '">' + '<br>')
+		$(charDiv).append('<span id="yourHp">' + characterObjects[event.target.id].hp + '</span>')
 
-		// Display Enemies available To Attack
-		//$("#enemies").append(anakinObj.display());
-		moveCharacter(anakinObj, "#enemies");
-		//$(anakinObj).addClass("enemies");
-        $(".enemies").css('background-color','Red');
+		// Move the other characters to enemies
+		for (var i = 0; i < characterObjects.length; i++) {
+
+			console.log(event.target.id);
+
+			if (i != event.target.id) {
+				var charDiv = document.createElement("button");
+				$("#enemies").append(charDiv);
+
+				$(charDiv).attr("class", "enemy");
+				$(charDiv).attr("id", i);
+				$(charDiv).attr("value", characterObjects[i].name);
+				$(charDiv).append(characterObjects[i].name + '<br>')
+				$(charDiv).append('<img src="' + characterObjects[i].photo + '">' + '<br>')
+				$(charDiv).append(characterObjects[i].hp)
+			}
+
+
+		}
+
+		// Empty #characters
+		$("#characters").remove();
 
 	});
 
 	// Select defender
 	//$(".enemy").click(function(event) {
-	$("#enemies").on("click", function() {
-	//$(".enemy").on("click", function() {
+	$("#enemies").on("click", function(event) {
 
-		console.log($(this));
-		console.log(this.value);
+		defenderID = event.target.id;
+		console.log(defenderID);
+		console.log(isDefenderSlected)
 
 		if (isDefenderSlected) {
 			return;
 		}
 		else{
-			// Move selected item to Defender
-			moveCharacter(anakinObj, "#defender");
 
 			// Remove from ememies available to attack
-			$(this).remove();
+			console.log(event.target);
+			$(event.target).remove();
+
+			// Move selected item to Defender
+			var charDiv = document.createElement("button");
+			$("#defender").append(charDiv);
+
+			$(charDiv).attr("class", "defender");
+			$(charDiv).attr("id", event.target.id);
+			$(charDiv).attr("value", characterObjects[event.target.id].name);
+			$(charDiv).append(characterObjects[event.target.id].name + '<br>')
+			$(charDiv).append('<img src="' + characterObjects[event.target.id].photo + '">' + '<br>')
+			$(charDiv).append('<span id="defenderHp">' + characterObjects[event.target.id].hp + '</span>')
 
 			isDefenderSlected = true;
 		}
 
 	});
 
-	$("#defender").click(function(event) {
 
+	// Nothing
+	$("#defender").click(function(event) {
+		var userAnswer = event.target.id;
+		console.log(userAnswer);
 		console.log("clicked def");
-		console.log(this);
+		console.log(this.value);
+		console.log($(this).value);
 
 	});
 
@@ -147,23 +157,51 @@ $(document).ready(function() {
 
 		if (isDefenderSlected) {
 			var result;
-			// You attacked xxx for xx damage.
-			// xxx attacked you back for xx damage.
+			
+			console.log(defenderID);
 
-			// You been defeated...GAME OVER!!!
-			// You have defeated xxx, you can choose to fight anothet enemy.
-
-			//var elem = document.getElementByID('yourCharacter');
-			//console.log(elem.id);
-			console.log($("#yourCharacter").children('button'));
-			console.log($("#yourCharacter button"));
-			var elem = $("#yourCharacter").children('button');
-			console.log(elem.value);
-			//if ()		
 			yourAttackPower += 8;
 
-			result = "You attacked xxx for " + parseInt(yourAttackPower) + " damage."
-			result += "<br>xxx attacked you back for xx damage."
+			result = "You attacked " + characterObjects[defenderID].name  + " for " + parseInt(yourAttackPower) + " damage."
+			result += "<br>" + characterObjects[defenderID].name  + " attacked you back for " + characterObjects[defenderID].ap + " damage."
+			
+			characterObjects[defenderID].hp = characterObjects[defenderID].hp - yourAttackPower;
+			console.log(characterObjects[defenderID].hp);
+
+			characterObjects[yourCharacterID].hp = characterObjects[yourCharacterID].hp - characterObjects[defenderID].ap;
+			console.log(characterObjects[yourCharacterID].hp);
+
+			// Update display of hp
+			var elem = document.getElementById('yourHp');
+			elem.innerText = characterObjects[yourCharacterID].hp;   
+
+			var elem = document.getElementById('defenderHp');
+			elem.innerText = characterObjects[defenderID].hp; 
+
+			//var elem = document.getElementById(defenderID);
+			console.log(defenderID);
+			//var elem = $(defenderID).[0];
+
+			console.log(elem);
+			console.log(characterObjects[defenderID]);
+
+			if (characterObjects[defenderID].hp <= 0) {
+				
+				result = "You have defeated " + characterObjects[defenderID].name + ", you can choose to fight anothet enemy."
+			
+				// Remove Defender
+
+				//$(characterObjects[defenderID]).remove();
+
+			}
+
+			if (characterObjects[yourCharacterID].hp <= 0) {
+
+				result = "You been defeated...GAME OVER!!!"
+
+				// Display Restart button
+			}
+
 		}
 		else {
         	result = "Slect defender";
