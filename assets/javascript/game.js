@@ -25,24 +25,53 @@ var characterObjects = [
   }
 ];
 
+var yourID;
+var yourHp;
+var defenderID;
+var defenderHp;
+//var yourDamage;
+//var defDamage;
+var yourAttackPower; // remember incresing
+var isDefenderSlected;
+var isEnemiesAvailable;
+//var defenderObj;
+//var restartButtonObj;
 
-$(document).ready(function() {
+var reset = function() {
 
-	var yourID;
-	var yourHp;
-	var defenderID;
-	var defenderHp;
-	var yourDamage;
-	var defDamage;
-	var yourAttackPower = 0; // remember incresing
-	var isDefenderSlected;
-	var isEnemiesAvailable;
-	//var defenderObj;
-	//var restartButtonObj;
+	// Reveme Defender
+	$("#defender").empty();
+	isDefenderSlected = false;
 
+	// Remove Restart button
+	$("#defender").empty();
+
+	// Empty #yourCharacter
+	$("#yourCharacter").empty();
+
+	// Empty #enemies;
+	$("#enemies").empty();
+
+	// Reset message
+	$("#result").html("");
+
+	// Remove Restart button
+	$("#restart").empty();
+
+	// Reset yourAttackPower
+	yourAttackPower = 0;
+
+	// Reset booleans
 	isDefenderSlected = false;
 	isEnemiesAvailable = false;
 
+	yourHp = 0;
+	defenderHp = 0;
+}
+
+$(document).ready(function() {
+
+	reset();
 
 	// Display characters
 	for (var i = 0; i < characterObjects.length; i++) {
@@ -150,9 +179,12 @@ $(document).ready(function() {
 
 				var result;
 
-				yourAttackPower += 8;
+				console.log(yourAttackPower);
 
-				result = "You attacked " + characterObjects[defenderID].name  + " for " + parseInt(yourAttackPower) + " damage."
+				yourAttackPower += 8;
+				console.log(yourAttackPower);
+
+				result = "You attacked " + characterObjects[defenderID].name  + " for " + yourAttackPower + " damage."
 				result += "<br>" + characterObjects[defenderID].name  + " attacked you back for " + characterObjects[defenderID].ap + " damage."
 				
 				//characterObjects[yourID].hp = characterObjects[yourID].hp - characterObjects[defenderID].ap;
@@ -184,8 +216,8 @@ $(document).ready(function() {
 					console.log(yourHp);
 					console.log(defenderHp);
 
-					result = "You have defeated " + characterObjects[defenderID].name + ", you can choose to fight anothet enemy."
-				
+					result = "You have defeated " + characterObjects[defenderID].name + ", "
+					
 					// Remove Defender
 					//$(defenderObj).remove();
 					$("#defender").empty();
@@ -195,10 +227,31 @@ $(document).ready(function() {
 					if ($(".enemy").length === 0) {
 						console.log("isempty");
 						result = "You Won!!!! GAME OVER!!!"
-					}
 
-					// Message
-        			$("#result").html(result);
+						// Message
+	        			$("#result").html(result);
+
+					}
+					else if (yourHp <= 0) {
+
+						result += "but your Hit Point is less than 0... <br>You have to restart.<br>"
+
+						// Message
+		        		$("#result").html(result);
+
+						// Display Restart button
+						var charButton = document.createElement("button");
+						$("#restart").append(charButton);
+						$(charButton).attr("id", "restart");
+						$(charButton).html("Restart");
+					}
+					else {
+						result += " you can choose to fight anothet enemy.<br>"
+
+						// Message
+		        		$("#result").html(result);
+
+					}
 
 				}
 				// When your character's hp is less then 0. Which means you been defeated...
@@ -233,13 +286,6 @@ $(document).ready(function() {
 	$("#restart").click(function(event) {
 	//$("#restart").on("click", function(event) {
 
-		// Reveme Defender
-		$("#defender").empty();
-		isDefenderSlected = false;
-
-		// Remove Restart button
-		$("#defender").empty();
-
 		// Set all characters back to #characters
 		for (var i = 0; i < characterObjects.length; i++) {
 
@@ -254,28 +300,13 @@ $(document).ready(function() {
 			$(charDiv).append(characterObjects[i].hp)
 		}
 
-		// Empty #yourCharacter
-		$("#yourCharacter").empty();
-
-		// Empty #enemies;
-		$("#enemies").empty();
-
-		// Reset message
-		$("#result").html("");
-
-		// Remove Restart button
-		$("#restart").empty();
-
-		// Reset yourAttackPower
-		yourAttackPower = 0;
+		reset();
 
 		// Reset hp
 		yourHp = characterObjects[yourID].hp;
 		defenderHp = characterObjects[defenderID].hp;
 
 	});
-
-
 
 });
 
