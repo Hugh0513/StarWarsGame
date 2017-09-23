@@ -34,6 +34,7 @@ var defenderHp;
 var yourAttackPower; // remember incresing
 var isDefenderSlected;
 var isEnemiesAvailable;
+var isGameEnd;
 //var defenderObj;
 //var restartButtonObj;
 
@@ -64,6 +65,7 @@ var reset = function() {
 	// Reset booleans
 	isDefenderSlected = false;
 	isEnemiesAvailable = false;
+	isGameEnd = false;
 
 	yourHp = 0;
 	defenderHp = 0;
@@ -136,7 +138,7 @@ $(document).ready(function() {
 	//$(".enemy").click(function(event) {
 	$("#enemies").on("click", ".enemy", function(event) {
 
-		if (!isDefenderSlected) {
+		if (!isDefenderSlected && !isGameEnd) {
 
 			// Initialize #result
         	$("#result").html("");
@@ -242,6 +244,7 @@ $(document).ready(function() {
 						// Message
 	        			$("#result").html(result);
 
+						isGameEnd = true; // not necessary here
 					}
 					else if (yourHp <= 0) {
 
@@ -255,6 +258,8 @@ $(document).ready(function() {
 						$("#restart").append(charButton);
 						$(charButton).attr("id", "restart");
 						$(charButton).html("Restart");
+
+						isGameEnd = true;
 					}
 					else {
 						result += " you can choose to fight anothet enemy.<br>"
