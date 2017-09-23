@@ -103,12 +103,7 @@ $(document).ready(function() {
 		$(charDiv).attr("value", characterObjects[yourID].name);
 		$(charDiv).append(characterObjects[yourID].name + '<br>')
 		$(charDiv).append('<img src="' + characterObjects[yourID].photo + '">' + '<br>')
-		//$(charDiv).append('<div id="yourHp">' + yourHp + '</div>')
-
-		var hpDiv = document.createElement("div");
-		$(charDiv).append(hpDiv);
-		$(hpDiv).attr("id", "yourHp");
-		$("#yourHp").html(yourHp);
+		$(charDiv).append('<div id="yourHp">' + yourHp + '</div>')
 
 		// Move the other characters to enemies
 		for (var i = 0; i < characterObjects.length; i++) {
@@ -157,12 +152,7 @@ $(document).ready(function() {
 			$(charDiv).attr("value", characterObjects[defenderID].name);
 			$(charDiv).append(characterObjects[defenderID].name + '<br>')
 			$(charDiv).append('<img src="' + characterObjects[defenderID].photo + '">' + '<br>')
-			//$(charDiv).append('<div id="defenderHp">' + characterObjects[defenderID].hp + '</div>')
-
-			var hpDiv = document.createElement("div");
-			$(charDiv).append(hpDiv);
-			$(hpDiv).attr("id", "defenderHp");
-			$("#defenderHp").html(defenderHp);
+			$(charDiv).append('<div id="defenderHp">' + characterObjects[defenderID].hp + '</div>')
 
 			//defenderObj = charDiv; // Save to remove when defender is defeated
 
@@ -207,13 +197,12 @@ $(document).ready(function() {
 				console.log(characterObjects[defenderID].ap);
 
 				// Update display of hp
-				//var elem = document.getElementById('yourHp');
-				//elem.innerText = yourHp; 
-				$("#yourHp").html(yourHp)  
+				var elem = document.getElementById('yourHp');
+				elem.innerText = yourHp; 
+				//$("#yourHp").html(characterObjects[yourID].hp)  
 
-				//var elem = document.getElementById('defenderHp');
-				//elem.innerText = defenderHp; 
-				$("#defenderHp").html(defenderHp)  
+				var elem = document.getElementById('defenderHp');
+				elem.innerText = defenderHp; 
 
 				$("#result").html(result);
 
